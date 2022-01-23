@@ -12,6 +12,7 @@ class Asset(BaseModel):
 
 class User(BaseModel):
     name: str
+    username: str
     snowflake: int
     image: Optional[Asset] = None
 

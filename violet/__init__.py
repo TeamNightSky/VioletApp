@@ -1,2 +1,2 @@
 from .app import app
-from .routes import discussions
+from .api import discussions
