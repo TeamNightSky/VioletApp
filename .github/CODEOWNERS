@@ -1,0 +1,12 @@
+violet/templates/* @FoxNerdSaysMoo
+violet/static/* @FoxNerdSaysMoo
+violet/api/* @GrandMoff100
+violet/app @GrandMoff100
+
+pyproject.toml @GrandMoff100
+poetry.lock @GrandMoff100
+.github/* @GrandMoff100
+.gitignore @GrandMoff100
+.pre-commit-config.yaml @GrandMoff100
+
+LICENSE @FoxNerdSaysMoo
