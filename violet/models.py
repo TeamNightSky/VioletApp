@@ -52,9 +52,11 @@ class Auth(BaseModel):
 
     def decode(self) -> bool:
         """Returns whether the token is valid, sets self.payload to the payload if valid."""
+        if (jwt_secret := os.getenv("JWT_SECRET")) is None:
+            raise ValueError("Expected JWT_SECRET")
         try:
             self.payload = jwt.decode(  # pylint: disable=no-member
-                self.token, os.getenv("JWT_SECRET"), algorithms=["HS256"]
+                self.token, jwt_secret, algorithms=["HS256"]
             )
         except jwt.PyJWTError:  # pylint: disable=no-member
             return False
@@ -68,8 +70,10 @@ class Auth(BaseModel):
     @staticmethod
     def from_payload(**payload) -> "Auth":
         """Creates an Auth model from JSON keyword arguments."""
+        if (jwt_secret := os.getenv("JWT_SECRET")) is None:
+            raise ValueError("Expected JWT_SECRET")
         token = jwt.encode(  # pylint: disable=no-member
-            payload, os.getenv("JWT_SECRET"), algorithms=["HS256"]
+            payload, jwt_secret, algorithm="HS256"
         )  # pylint: disable=no-member
         return Auth(token=token, payload=payload)
 
