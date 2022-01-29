@@ -9,11 +9,12 @@ disable = ["too-few-public-methods"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fastapi = "^0.72.0"
+fastapi = "0.73.0"
 uvicorn = "^0.17.0"
 PyJWT = "^2.3.0"
 python-multipart = "^0.0.5"
 requests = "^2.27.1"
+postgrest-py = "^0.8.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"

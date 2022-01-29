@@ -1,7 +1,9 @@
 """Sub-Mounted App for frontend page templates."""
-from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse
+from fastapi import Cookie, FastAPI, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+
+from violet.models import Auth
 
 frontend = FastAPI()
 
@@ -21,18 +23,6 @@ async def view_register(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
 
-@frontend.post("/register", response_class=HTMLResponse)
-async def register_user(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...),
-    email: str = Form(...),
-):
-    """Registers a user in the db and returns a redirect template."""
-    print(username, password, email)
-    return templates.TemplateResponse("register_success.html", {"request": request})
-
-
 @frontend.get("/about", response_class=HTMLResponse)
 async def view_about(request: Request):
     """Returns the about page template"""
@@ -40,13 +30,22 @@ async def view_about(request: Request):
 
 
 @frontend.get("/conversations", response_class=HTMLResponse)
-async def view_conversations(request: Request):
+async def view_conversations(request: Request, access_token: str = Cookie(None)):
     """Returns conversations page template"""
+    fail_response = RedirectResponse("/")
+    if not access_token:
+        return fail_response
+
+    auth = Auth(token=access_token)
+    if fail_response == auth.decode(fail_response):
+        return fail_response
     return templates.TemplateResponse("conversations.html", {"request": request})
 
 
 @frontend.get("/conversation", response_class=HTMLResponse)
-async def view_conversation(request: Request):
+async def view_conversation(
+    request: Request,
+):
     """Returns a conversation page template"""
     return templates.TemplateResponse("conversation.html", {"request": request})
 

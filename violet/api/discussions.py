@@ -1,29 +1,37 @@
 """Registers discussion CRUD endpoints."""
-from violet.api.app import api
-from violet.models import Discussion
+from fastapi import APIRouter
+
+# from violet.db import app_db
+from violet.models import Auth, Discussion
+
+dis = APIRouter()
 
 
-@api.get("/discussions/{snowflake}")
-async def get_discussion(snowflake: int):
+@dis.get("/{snowflake}")
+async def get_discussion(snowflake: int, auth: Auth):
     """Gets a discussion."""
     del snowflake
+    del auth
 
 
-@api.put("/discussions/{snowflake}")
-async def put_discussion(snowflake: int, discussion: Discussion):
+@dis.put("/{snowflake}")
+async def put_discussion(snowflake: int, discussion: Discussion, auth: Auth):
     """Creates a discussion."""
     del snowflake
     del discussion
+    del auth
 
 
-@api.post("/discussions/{snowflake}")
-async def post_discussion(snowflake: int, discussion: Discussion):
+@dis.post("/{snowflake}")
+async def post_discussion(snowflake: int, discussion: Discussion, auth: Auth):
     """Updates a discussion."""
     del snowflake
     del discussion
+    del auth
 
 
-@api.delete("/discussions/{snowflake}")
-async def delete_discussion(snowflake: int):
+@dis.delete("/{snowflake}")
+async def delete_discussion(snowflake: int, auth: Auth):
     """Deletes a discussion model."""
     del snowflake
+    del auth

@@ -1,6 +1,6 @@
 violet/templates/* @FoxNerdSaysMoo
 violet/static/* @FoxNerdSaysMoo
-violet/api/* @GrandMoff100
+violet/api/* @GrandMoff100, @FoxNerdSaysMoo
 violet/app @GrandMoff100
 
 pyproject.toml @GrandMoff100
